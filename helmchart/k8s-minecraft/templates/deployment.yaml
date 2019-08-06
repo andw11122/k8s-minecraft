@@ -23,6 +23,8 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        tty: true
+        stdin: true
         env:
         - name: EULA
           value: "{{ .Values.minecraft.eula }}"
@@ -43,6 +45,15 @@ spec:
         volumeMounts:
         - name: {{ .Values.Persistence.VolumeName }}
           mountPath: {{ .Values.Persistence.MountPath }}
+      initContainers:
+        - name: permissionsfix
+          image: alpine:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - chown -R 1000:1000 {{ .Values.Persistence.MountPath }};
+          volumeMounts:
+            - name: {{ .Values.Persistence.VolumeName }}
+              mountPath: {{ .Values.Persistence.MountPath }}
       securityContext:
         fsGroup: {{ .Values.SecurityContext }}
       volumes:

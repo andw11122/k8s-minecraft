@@ -5,15 +5,18 @@
 replicaCount: 1
 
 image:
-  repository: "hoeghh/minecraft"
-  tag: "1.12.2"
+  repository: "tbwlat/mc"
+  tag: "1.8.8"
+#  repository: "hoeghh/minecraft"
+#  tag: "1.12.2"
   pullPolicy: Always
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 25565
+  nodePort: 31111
   name: minecraft
-  
+
 minecraft:
   eula: true
 

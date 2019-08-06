@@ -13,7 +13,7 @@ EXPOSE 33434
 
 #WORKDIR /home/minecraft
 
-ENV VERSION "1.12.2"
+ENV VERSION "1.8"
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
